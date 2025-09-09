@@ -7,10 +7,10 @@ pipeline {
 
     environment {
         DOCKER_REGISTRY = "mudam5"
-        IMAGE_NAME = "log-export"
-        HOST_PORT = "9097"
-        CONTAINER_PORT = "9097"   // match docker-compose.yml
-        CONTAINER_NAME = "log-exporter"
+        IMAGE_NAME = "log-analyser"
+        HOST_PORT = "8086"
+        CONTAINER_PORT = "8086"   // match docker-compose.yml
+        CONTAINER_NAME = "log-analyser"
     }
 
     stages {
