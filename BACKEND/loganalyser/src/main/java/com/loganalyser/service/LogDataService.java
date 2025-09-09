@@ -29,7 +29,8 @@ public class LogDataService {
 		}
 
 		// Pass LocalDateTime directly
-		return repository.countByLogtypeAndTimeBetween(start, end, logtype);
+		// return repository.countByLogtypeAndTimeBetween(start, end, logtype);
+		repository.countByLogtypeAndTimestampBetween(logtype, start, end);
 	}
 	
 	
