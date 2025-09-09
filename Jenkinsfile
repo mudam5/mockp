@@ -17,7 +17,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'dev',
-                    url: 'https://github.com/mudam5/Log-Processing.git'
+                    url: 'https://github.com/mudam5/mockp.git'
             }
         }
 
