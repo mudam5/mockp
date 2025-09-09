@@ -33,7 +33,7 @@ pipeline {
 
         stage('Build Maven Project') {
             steps {
-                dir('BACKEND/LogExport') {   // pom.xml is here
+                dir('BACKEND/loganalyser') {   // pom.xml is here
                     sh 'mvn clean package -DskipTests'
                 }
             }
