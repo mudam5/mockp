@@ -1,42 +1,39 @@
-package com.loganalyser.repository;
+package com.loganalyser.service;
 
 import com.loganalyser.model.LogData;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
+import com.loganalyser.repository.LogDataRepository;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Repository
-public interface LogDataRepository extends JpaRepository<LogData, Long> {
+@Service
+public class LogDataService {
+
+    private final LogDataRepository repository;
+
+    public LogDataService(LogDataRepository repository) {
+        this.repository = repository;
+    }
 
     /**
-     * Count logs by type within a time range.
-     * Uses Spring Data JPA derived query mechanism.
-     * Requires that LogData has fields: logtype (String), timestamp (LocalDateTime).
+     * Count logs by type in a time range.
      */
-    long countByLogtypeAndTimestampBetween(String logtype, LocalDateTime start, LocalDateTime end);
-
-    /**
-     * Example custom query with explicit JPQL and parameters.
-     */
-    @Query("SELECT COUNT(l) FROM LogData l " +
-           "WHERE l.timestamp BETWEEN :start AND :end AND l.logtype = :logtype")
-    Long countByLogtypeAndTimeBetween(@Param("start") LocalDateTime start,
-                                      @Param("end") LocalDateTime end,
-                                      @Param("logtype") String logtype);
+    public long getLogCount(String logtype, LocalDateTime start, LocalDateTime end) {
+        return repository.countByLogtypeAndTimestampBetween(logtype, start, end);
+    }
 
     /**
      * Count logs grouped by log level/type.
      */
-    @Query("SELECT l.logtype, COUNT(l) FROM LogData l GROUP BY l.logtype")
-    List<Object[]> countLogsByLevel();
+    public List<Object[]> getLogsGroupedByLevel() {
+        return repository.countLogsByLevel();
+    }
 
     /**
-     * Retrieve all logs (explicit query form, but could also use findAll()).
+     * Get all logs.
      */
-    @Query("SELECT l FROM LogData l")
-    List<LogData> getAllLogs();
+    public List<LogData> getAllLogs() {
+        return repository.getAllLogs();
+    }
 }
