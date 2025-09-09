@@ -15,7 +15,10 @@ public interface LogDataRepository extends JpaRepository<LogData, Long> {
 	                                  @Param("end") LocalDateTime end,
 	                                  @Param("logtype") String logtype);*/
 	
-	
+	@Repository
+public interface LogDataRepository extends JpaRepository<LogData, Long> {
+    long countByLogtypeAndTimestampBetween(String logtype, LocalDateTime start, LocalDateTime end);
+}
 	@Query("SELECT l.logtype, COUNT(l) FROM LogData l GROUP BY l.logtype")
 	List<Object[]> countLogsByLevel();
 
